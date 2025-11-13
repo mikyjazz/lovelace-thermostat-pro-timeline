@@ -4371,7 +4371,7 @@ class ThermostatTimelineCard extends HTMLElement {
       try {
         const testBtn = document.createElement('button');
         testBtn.className = 'test-btn';
-        testBtn.setAttribute('title','Test værktøj');
+        testBtn.setAttribute('title','Testing tool');
         testBtn.innerHTML = '<ha-icon icon="mdi:ladybug"></ha-icon>';
         testBtn.addEventListener('click', ()=>{ try { this._openTestPopup(); } catch {} });
         titleEl.append(testBtn);
@@ -4393,11 +4393,11 @@ class ThermostatTimelineCard extends HTMLElement {
           if (running) {
             icon.setAttribute('icon','mdi:sync');
             pill.classList.add('primary');
-            txt.textContent = 'Igangværende sync…';
+            txt.textContent = 'Sync in progress…';
           } else if (justDone) {
             icon.setAttribute('icon','mdi:check-circle-outline');
             pill.classList.add('success');
-            txt.textContent = 'Sync gennemført';
+            txt.textContent = 'Sync completed';
           } else {
             icon.setAttribute('icon','mdi:timer-outline');
             pill.classList.add('ghost');
