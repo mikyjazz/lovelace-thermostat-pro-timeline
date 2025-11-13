@@ -2371,8 +2371,8 @@ class ThermostatTimelineCard extends HTMLElement {
       entities: config.entities,
       row_height: rowh,
       default_temp: deft,
-  max_temp: maxt,
-    min_temp: mint,
+      max_temp: maxt,
+      min_temp: mint,
       temp_unit: (config.temp_unit === undefined || config.temp_unit === null || config.temp_unit === 'auto')
         ? (this._detectPreferF() ? 'F' : 'C')
         : (String(config.temp_unit).toUpperCase()==='F'?'F':'C'),
@@ -2383,40 +2383,40 @@ class ThermostatTimelineCard extends HTMLElement {
       now_update_ms: nowms,
       storage_entity: (config.storage_entity || "").trim(),
       storage_enabled: !!(config.storage_enabled ?? false),
-  storage_sync_mode: (config.storage_sync_mode === 'delay' ? 'delay' : 'instant'),
-  storage_sync_min: Number.isFinite(config.storage_sync_min) ? Math.max(0, Math.min(1440, Number(config.storage_sync_min))) : (this._config?.storage_sync_min ?? 5),
-  storage_sync_sec: Number.isFinite(config.storage_sync_sec)
-    ? Math.max(5, Math.min(86400, Math.round(config.storage_sync_sec)))
-    : (Number.isFinite(config.storage_sync_min) ? Math.max(5, Math.min(86400, Math.round(Number(config.storage_sync_min)*60))) : (this._config?.storage_sync_sec ?? 15)),
-  backup_auto_enabled: !!(config.backup_auto_enabled ?? this._config?.backup_auto_enabled ?? false),
-  backup_interval_days: Number.isFinite(config.backup_interval_days) ? Math.max(1, Math.min(365, Math.round(config.backup_interval_days))) : (this._config?.backup_interval_days ?? 1),
+      storage_sync_mode: (config.storage_sync_mode === 'delay' ? 'delay' : 'instant'),
+      storage_sync_min: Number.isFinite(config.storage_sync_min) ? Math.max(0, Math.min(1440, Number(config.storage_sync_min))) : (this._config?.storage_sync_min ?? 5),
+      storage_sync_sec: Number.isFinite(config.storage_sync_sec)
+        ? Math.max(5, Math.min(86400, Math.round(config.storage_sync_sec)))
+        : (Number.isFinite(config.storage_sync_min) ? Math.max(5, Math.min(86400, Math.round(Number(config.storage_sync_min)*60))) : (this._config?.storage_sync_sec ?? 15)),
+      backup_auto_enabled: !!(config.backup_auto_enabled ?? this._config?.backup_auto_enabled ?? false),
+      backup_interval_days: Number.isFinite(config.backup_interval_days) ? Math.max(1, Math.min(365, Math.round(config.backup_interval_days))) : (this._config?.backup_interval_days ?? 1),
       show_top_now: showTop,
       now_extend_px: extendPx,
-  show_pause_button: !!(config.show_pause_button ?? true),
+      show_pause_button: !!(config.show_pause_button ?? true),
       auto_apply: config.auto_apply ?? true,
       apply_on_edit: config.apply_on_edit ?? true,
       apply_on_default_change: config.apply_on_default_change ?? true,
-  labels: { ...(config.labels || {}) },
+      labels: { ...(config.labels || {}) },
       merges: { ...(config.merges || {}) },
-    temp_sensors: { ...(config.temp_sensors || {}) },
-  color_ranges: { ...(config.color_ranges || {}) },
-    color_global: !!(config.color_global ?? this._config?.color_global ?? false),
+      temp_sensors: { ...(config.temp_sensors || {}) },
+      color_ranges: { ...(config.color_ranges || {}) },
+      color_global: !!(config.color_global ?? this._config?.color_global ?? false),
       per_room_defaults: !!(config.per_room_defaults ?? this._config?.per_room_defaults ?? false),
       presence_live_header: !!(config.presence_live_header ?? this._config?.presence_live_header ?? true),
       weekdays_enabled: !!(config.weekdays_enabled ?? false),
-  weekdays_mode: (config.weekdays_mode || 'weekday_weekend'),
-    profiles_enabled: !!(config.profiles_enabled ?? false),
-    away: {
-      enabled: !!(config.away?.enabled ?? false),
-      persons: [...(config.away?.persons || [])],
-      target_c: Number.isFinite(config.away?.target_c) ? Number(config.away.target_c) : 17,
-      advanced_enabled: !!(config.away?.advanced_enabled ?? this._config?.away?.advanced_enabled ?? false),
-      combos: { ...(config.away?.combos || this._config?.away?.combos || {}) }
-    }
-  , holidays_enabled: !!(config.holidays_enabled ?? this._config?.holidays_enabled ?? false)
-  , holidays_source: (config.holidays_source || this._config?.holidays_source || 'calendar')
-  , holidays_entity: String(config.holidays_entity || this._config?.holidays_entity || '')
-  , holidays_dates: Array.isArray(config.holidays_dates) ? [...config.holidays_dates] : ([...(this._config?.holidays_dates || [])])
+      weekdays_mode: (config.weekdays_mode || 'weekday_weekend'),
+      profiles_enabled: !!(config.profiles_enabled ?? false),
+      away: {
+        enabled: !!(config.away?.enabled ?? false),
+        persons: [...(config.away?.persons || [])],
+        target_c: Number.isFinite(config.away?.target_c) ? Number(config.away.target_c) : 17,
+        advanced_enabled: !!(config.away?.advanced_enabled ?? this._config?.away?.advanced_enabled ?? false),
+        combos: { ...(config.away?.combos || this._config?.away?.combos || {}) }
+      }
+    , holidays_enabled: !!(config.holidays_enabled ?? this._config?.holidays_enabled ?? false)
+    , holidays_source: (config.holidays_source || this._config?.holidays_source || 'calendar')
+    , holidays_entity: String(config.holidays_entity || this._config?.holidays_entity || '')
+    , holidays_dates: Array.isArray(config.holidays_dates) ? [...config.holidays_dates] : ([...(this._config?.holidays_dates || [])])
     };
 
     // If YAML explicitly changed default_temp, update rows that still use the old
@@ -2913,7 +2913,7 @@ class ThermostatTimelineCard extends HTMLElement {
     return { main: `${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`, mer: null };
   }
   _hourLabel(h){ const min = (h%24)*60; return this._label(min); }
-  _useHaTime(){ try { return String(this._config?.time_source||'browser') === 'ha'; } catch { return false; } }
+  _useHaTime(){ try { return String(this._config.time_source||'browser') === 'ha'; } catch { return false; } }
   _getNowMin(){
     try {
       if (this._useHaTime() && this._hass?.config?.time_zone) {
@@ -3038,7 +3038,7 @@ class ThermostatTimelineCard extends HTMLElement {
         labels: this._config.labels,
         temp_sensors: this._config.temp_sensors,
         show_pause_button: !!(this._config.show_pause_button ?? true),
-  presence_live_header: !!(this._config.presence_live_header ?? true),
+        presence_live_header: !!(this._config.presence_live_header ?? true),
         auto_apply_enabled: !!this._config.auto_apply,
         apply_on_edit: !!this._config.apply_on_edit,
         backup_auto_enabled: !!this._config.backup_auto_enabled,
@@ -8257,15 +8257,18 @@ class ThermostatTimelineCardEditor extends HTMLElement {
       const srcB = this.shadowRoot.querySelector('.srcBrowser');
       const srcH = this.shadowRoot.querySelector('.srcHa');
       const applySrcUi = ()=>{
-        const useHa = String(this._config?.time_source||'browser')==='ha';
-        try { srcB && srcB.classList.toggle('active', !useHa); } catch {}
-        try { srcH && srcH.classList.toggle('active', useHa); } catch {}
+        const useHa = String(this._config.time_source||'browser')==='ha';
+        if (srcB && srcH) {
+          srcH.classList.toggle('active', useHa);
+          srcB.classList.toggle('active', !useHa);
+        }
       };
       if (srcB) srcB.addEventListener('click', ()=>{ this._upd('time_source','browser'); applySrcUi(); try { this._startUiTimer(); this._render(); this._scheduleNextApply(); } catch {} });
       if (srcH) srcH.addEventListener('click', ()=>{ this._upd('time_source','ha'); applySrcUi(); try { this._startUiTimer(); this._render(); this._scheduleNextApply(); } catch {} });
       applySrcUi();
       applyFmtUi();
     } catch {}
+
     // Temperature unit segmented control
     try {
       const uC = this.shadowRoot.querySelector('.unitC');
@@ -8400,9 +8403,9 @@ class ThermostatTimelineCardEditor extends HTMLElement {
         labels: this._config.labels,
         temp_sensors: this._config.temp_sensors,
         show_pause_button: !!(this._config.show_pause_button ?? true),
-  profiles_enabled: !!this._config.profiles_enabled,
-  backup_auto_enabled: !!this._config.backup_auto_enabled,
-  backup_interval_min: Number(this._config.backup_interval_min||1440),
+        profiles_enabled: !!this._config.profiles_enabled,
+        backup_auto_enabled: !!this._config.backup_auto_enabled,
+        backup_interval_min: Number(this._config.backup_interval_min||1440),
         apply_on_edit: !!this._config.apply_on_edit,
         auto_apply_enabled: !!this._config.auto_apply,
         pause_indef: !!this._pauseIndef,
@@ -8486,26 +8489,26 @@ class ThermostatTimelineCardEditor extends HTMLElement {
       } catch {}
     }
 
-  const t = this.shadowRoot.querySelector(".title");
-  const d = this.shadowRoot.querySelector(".def");
-  const mx= this.shadowRoot.querySelector('.maxc');
-  const mn= this.shadowRoot.querySelector('.minc');
+    const t = this.shadowRoot.querySelector(".title");
+    const d = this.shadowRoot.querySelector(".def");
+    const mx= this.shadowRoot.querySelector('.maxc');
+    const mn= this.shadowRoot.querySelector('.minc');
     const rh= this.shadowRoot.querySelector(".rowh");
-  const se= this.shadowRoot.querySelector(".storage");
-  const seEn = this.shadowRoot.querySelector('.store-enable');
+    const se= this.shadowRoot.querySelector(".storage");
+    const seEn = this.shadowRoot.querySelector('.store-enable');
     const au= this.shadowRoot.querySelector(".auto");
     const aed= this.shadowRoot.querySelector(".applyedit");
     const adf= this.shadowRoot.querySelector(".applydef");
-  const pbe = this.shadowRoot.querySelector('.pausebtn-enable');
-  const prd = this.shadowRoot.querySelector('.perroom-enable');
-  const wek = this.shadowRoot.querySelector('.week-enable');
-  const prf = this.shadowRoot.querySelector('.profiles-enable');
-  const hol = this.shadowRoot.querySelector('.holidays-enable');
+    const pbe = this.shadowRoot.querySelector('.pausebtn-enable');
+    const prd = this.shadowRoot.querySelector('.perroom-enable');
+    const wek = this.shadowRoot.querySelector('.week-enable');
+    const prf = this.shadowRoot.querySelector('.profiles-enable');
+    const hol = this.shadowRoot.querySelector('.holidays-enable');
     if (t)  t.value  = this._config.title ?? "";
-  if (d && d !== this.shadowRoot.activeElement) d.value = String(this._toDisplayTemp(this._config.default_temp ?? 20));
-  if (mx && mx !== this.shadowRoot.activeElement) mx.value = String(this._toDisplayTemp(this._config.max_temp ?? 25));
-  // Ensure Max °C input respects display units and new allowed bounds (5..80 C -> 41..176 F)
-  try { if (mx) { mx.setAttribute('min', String(this._toDisplayTemp(5))); mx.setAttribute('max', String(this._toDisplayTemp(80))); } } catch {}
+    if (d && d !== this.shadowRoot.activeElement) d.value = String(this._toDisplayTemp(this._config.default_temp ?? 20));
+    if (mx && mx !== this.shadowRoot.activeElement) mx.value = String(this._toDisplayTemp(this._config.max_temp ?? 25));
+    // Ensure Max °C input respects display units and new allowed bounds (5..80 C -> 41..176 F)
+    try { if (mx) { mx.setAttribute('min', String(this._toDisplayTemp(5))); mx.setAttribute('max', String(this._toDisplayTemp(80))); } } catch {}
     if (mn && mn !== this.shadowRoot.activeElement) mn.value = String(this._toDisplayTemp(this._config.min_temp ?? 5));
     if (rh && rh !== this.shadowRoot.activeElement) rh.value = String(this._config.row_height ?? 64);
     if (se) { try { se.hass = this._hass; } catch {} try { se.value = this._config.storage_entity || ""; } catch {} }
@@ -8550,33 +8553,33 @@ class ThermostatTimelineCardEditor extends HTMLElement {
     if (au) { au.checked = !!this._config.auto_apply; }
     if (aed){ aed.checked = !!this._config.apply_on_edit; }
     if (adf){ adf.checked = !!this._config.apply_on_default_change; }
-  if (wek){ wek.checked = !!this._config.weekdays_enabled; }
-  if (prf){ prf.checked = !!this._config.profiles_enabled; }
-  if (hol){ hol.checked = !!this._config.holidays_enabled; }
-  // Hide legacy Holidays toggle in Settings tab (moved to Holidays tab)
-  try { const hs = this.shadowRoot.querySelector('.holidays-setting'); if (hs) hs.style.display = 'none'; } catch {}
-  if (pbe){ pbe.checked = !!(this._config.show_pause_button ?? true); }
-  if (prd){ prd.checked = !!this._config.per_room_defaults; }
-  // Backup tab controls
-  try {
-  const bAuto = this.shadowRoot.querySelector('.backup-auto');
-  const bMin = this.shadowRoot.querySelector('.backup-days');
-  const bRow = this.shadowRoot.querySelector('.backup-interval-row');
+    if (wek){ wek.checked = !!this._config.weekdays_enabled; }
+    if (prf){ prf.checked = !!this._config.profiles_enabled; }
+    if (hol){ hol.checked = !!this._config.holidays_enabled; }
+    // Hide legacy Holidays toggle in Settings tab (moved to Holidays tab)
+    try { const hs = this.shadowRoot.querySelector('.holidays-setting'); if (hs) hs.style.display = 'none'; } catch {}
+    if (pbe){ pbe.checked = !!(this._config.show_pause_button ?? true); }
+    if (prd){ prd.checked = !!this._config.per_room_defaults; }
+    // Backup tab controls
+    try {
+    const bAuto = this.shadowRoot.querySelector('.backup-auto');
+    const bMin = this.shadowRoot.querySelector('.backup-days');
+    const bRow = this.shadowRoot.querySelector('.backup-interval-row');
     const bBtn = this.shadowRoot.querySelector('.btn-backup-now');
     const rBtn = this.shadowRoot.querySelector('.btn-restore-now');
     const lastDesc = this.shadowRoot.querySelector('.last-backup-desc');
-  if (bAuto) bAuto.checked = !!this._config.backup_auto_enabled;
-  if (bRow) bRow.style.display = (!!this._config.backup_auto_enabled) ? '' : 'none';
+    if (bAuto) bAuto.checked = !!this._config.backup_auto_enabled;
+    if (bRow) bRow.style.display = (!!this._config.backup_auto_enabled) ? '' : 'none';
     if (bMin && bMin !== this.shadowRoot.activeElement) bMin.value = String(this._config.backup_interval_days || 1);
     if (lastDesc && this._hass){
       const st=this._hass.states['sensor.thermostat_timeline_backup'];
       const ts=st?.attributes?.last_backup_ts;
-      const fmt = (iso)=>{ try{ if(!iso) return ''; const d=new Date(iso); const lang = ttGetLangFromHass(this._hass || this._lang || 'en'); const opts={ dateStyle:'medium', timeStyle:'short' }; if (this._config?.time_source==='ha' && this._hass?.config?.time_zone) opts.timeZone=this._hass.config.time_zone; return new Intl.DateTimeFormat(lang, opts).format(d);} catch{ return String(iso||''); } };
+      const fmt = (iso)=>{ try{ if(!iso) return ''; const d=new Date(iso); const lang = ttGetLangFromHass(this._hass || this._lang || 'en'); const opts={ dateStyle:'medium', timeStyle:'short' }; if (this._config.time_source==='ha' && this._hass?.config?.time_zone) opts.timeZone=this._hass.config.time_zone; return new Intl.DateTimeFormat(lang, opts).format(d);} catch{ return String(iso||''); } };
       lastDesc.textContent = ts ? fmt(ts) : '';
     }
-  bBtn && (bBtn.onclick = async ()=>{ try { await this._hass.callService('thermostat_timeline','backup_now',{}); setTimeout(()=>{ try { this._render(); } catch{} }, 800); } catch {} });
-  rBtn && (rBtn.onclick = async ()=>{ try { if (confirm('Restore from backup? This will overwrite current schedules and settings.')) { await this._hass.callService('thermostat_timeline','restore_now',{}); setTimeout(()=>{ try { this._render(); } catch{} }, 800); } } catch {} });
-  bAuto && bAuto.addEventListener('change', (e)=>{ const on=!!e.target.checked; this._upd('backup_auto_enabled', on); if (bRow) bRow.style.display = on? '' : 'none'; try { this._pushSettingsToStoreDebounced(); } catch {} });
+    bBtn && (bBtn.onclick = async ()=>{ try { await this._hass.callService('thermostat_timeline','backup_now',{}); setTimeout(()=>{ try { this._render(); } catch{} }, 800); } catch {} });
+    rBtn && (rBtn.onclick = async ()=>{ try { if (confirm('Restore from backup? This will overwrite current schedules and settings.')) { await this._hass.callService('thermostat_timeline','restore_now',{}); setTimeout(()=>{ try { this._render(); } catch{} }, 800); } } catch {} });
+    bAuto && bAuto.addEventListener('change', (e)=>{ const on=!!e.target.checked; this._upd('backup_auto_enabled', on); if (bRow) bRow.style.display = on? '' : 'none'; try { this._pushSettingsToStoreDebounced(); } catch {} });
     bMin && bMin.addEventListener('change', (e)=>{ let v=Math.round(Number(e.target.value||1)); if(!Number.isFinite(v)) v=1; v=Math.max(1, Math.min(365, v)); e.target.value=String(v); this._upd('backup_interval_days', v); try { this._pushSettingsToStoreDebounced(); } catch {} });
   } catch {}
   // No mode dropdown in editor
@@ -9971,32 +9974,32 @@ class ThermostatTimelineCardEditor extends HTMLElement {
       } catch {}
       // Tabs labels
       try {
-  const sBtn = root.querySelector('.tab-settings-btn'); if (sBtn) sBtn.textContent = t('editor.tabs.settings');
-  const rBtn = root.querySelector('.tab-rooms-btn'); if (rBtn) rBtn.textContent = t('editor.tabs.rooms');
+        const sBtn = root.querySelector('.tab-settings-btn'); if (sBtn) sBtn.textContent = t('editor.tabs.settings');
+        const rBtn = root.querySelector('.tab-rooms-btn'); if (rBtn) rBtn.textContent = t('editor.tabs.rooms');
         const cBtn = root.querySelector('.tab-colors-btn'); if (cBtn) cBtn.textContent = t('editor.tabs.colors');
         const aBtn = root.querySelector('.tab-away-btn'); if (aBtn) aBtn.textContent = t('editor.tabs.away');
-    const yBtn = root.querySelector('.tab-sync-btn'); if (yBtn) yBtn.textContent = t('editor.tabs.sync');
-    const bBtn = root.querySelector('.tab-backup-btn'); if (bBtn) bBtn.textContent = t('editor.tabs.backup') || 'Backup';
-    const hBtn = root.querySelector('.tab-holidays-btn'); if (hBtn) hBtn.textContent = t('editor.tabs.holidays');
-    // Holidays tab inner labels
-    try {
-      const srcTitle = root.querySelector('.tab-holidays .settings-card .setting .title'); if (srcTitle) srcTitle.textContent = t('holidays.source');
-      const srcDesc = root.querySelector('.tab-holidays .settings-card .setting .desc'); if (srcDesc) srcDesc.textContent = t('holidays.desc');
-      const calTitle = root.querySelector('.tab-holidays .settings-card .setting:nth-child(2) .title'); if (calTitle) calTitle.textContent = t('holidays.entity');
-      const manTitle = root.querySelector('.tab-holidays .settings-card .setting:nth-child(3) .title'); if (manTitle) manTitle.textContent = t('holidays.dates');
-      const editBtns = root.querySelectorAll('.tab-holidays .inline .actions .btn'); editBtns.forEach(b=>{ try { b.textContent = t('holidays.edit'); } catch{} });
-      const segCal = root.querySelector('.tab-holidays .h-src-cal'); if (segCal) segCal.textContent = t('holidays.source.calendar');
-      const segMan = root.querySelector('.tab-holidays .h-src-man'); if (segMan) segMan.textContent = t('holidays.source.manual');
-      const addDate = root.querySelector('.tab-holidays .add-entity-btn span'); if (addDate) addDate.textContent = t('holidays.add_date');
-    } catch {}
+        const yBtn = root.querySelector('.tab-sync-btn'); if (yBtn) yBtn.textContent = t('editor.tabs.sync');
+        const bBtn = root.querySelector('.tab-backup-btn'); if (bBtn) bBtn.textContent = t('editor.tabs.backup') || 'Backup';
+        const hBtn = root.querySelector('.tab-holidays-btn'); if (hBtn) hBtn.textContent = t('editor.tabs.holidays');
+        // Holidays tab inner labels
+        try {
+          const srcTitle = root.querySelector('.tab-holidays .settings-card .setting .title'); if (srcTitle) srcTitle.textContent = t('holidays.source');
+          const srcDesc = root.querySelector('.tab-holidays .settings-card .setting .desc'); if (srcDesc) srcDesc.textContent = t('holidays.desc');
+          const calTitle = root.querySelector('.tab-holidays .settings-card .setting:nth-child(2) .title'); if (calTitle) calTitle.textContent = t('holidays.entity');
+          const manTitle = root.querySelector('.tab-holidays .settings-card .setting:nth-child(3) .title'); if (manTitle) manTitle.textContent = t('holidays.dates');
+          const editBtns = root.querySelectorAll('.tab-holidays .inline .actions .btn'); editBtns.forEach(b=>{ try { b.textContent = t('holidays.edit'); } catch{} });
+          const segCal = root.querySelector('.tab-holidays .h-src-cal'); if (segCal) segCal.textContent = t('holidays.source.calendar');
+          const segMan = root.querySelector('.tab-holidays .h-src-man'); if (segMan) segMan.textContent = t('holidays.source.manual');
+          const addDate = root.querySelector('.tab-holidays .add-entity-btn span'); if (addDate) addDate.textContent = t('holidays.add_date');
+        } catch {}
         // (reload buttons removed)
-    // Colors mode labels
-    const cmTitle = root.querySelector('.colors-mode-title'); if (cmTitle) cmTitle.textContent = t('editor.colors.mode');
-    const cmDesc = root.querySelector('.colors-mode-desc'); if (cmDesc) cmDesc.textContent = t('editor.colors.mode.desc');
-    const cmRoom = root.querySelector('.colors-mode .mode-room'); if (cmRoom) cmRoom.textContent = t('editor.colors.mode_per_room');
-    const cmGlob = root.querySelector('.colors-mode .mode-global'); if (cmGlob) cmGlob.textContent = t('editor.colors.mode_global');
-  // Colors tab action label (single clear-all button)
-  const clrAllBtn = root.querySelector('.clr-colors-all-btn span'); if (clrAllBtn) clrAllBtn.textContent = t('editor.colors.clear_all');
+        // Colors mode labels
+        const cmTitle = root.querySelector('.colors-mode-title'); if (cmTitle) cmTitle.textContent = t('editor.colors.mode');
+        const cmDesc = root.querySelector('.colors-mode-desc'); if (cmDesc) cmDesc.textContent = t('editor.colors.mode.desc');
+        const cmRoom = root.querySelector('.colors-mode .mode-room'); if (cmRoom) cmRoom.textContent = t('editor.colors.mode_per_room');
+        const cmGlob = root.querySelector('.colors-mode .mode-global'); if (cmGlob) cmGlob.textContent = t('editor.colors.mode_global');
+        // Colors tab action label (single clear-all button)
+        const clrAllBtn = root.querySelector('.clr-colors-all-btn span'); if (clrAllBtn) clrAllBtn.textContent = t('editor.colors.clear_all');
         // Away tab labels
         const awayTitle = root.querySelector('.away-enable-title'); if (awayTitle) awayTitle.textContent = t('away.enable');
         const awayDesc = root.querySelector('.away-desc'); if (awayDesc) awayDesc.textContent = t('away.desc');
@@ -10005,9 +10008,9 @@ class ThermostatTimelineCardEditor extends HTMLElement {
         // Presence labels in Away tab
         const advTitle = root.querySelector('.away-adv-title'); if (advTitle) advTitle.textContent = t('presence.enable_advanced');
         const advDesc = root.querySelector('.away-adv-desc'); if (advDesc) advDesc.textContent = '';
-  const pcTitle = root.querySelector('.presence-combos-title'); if (pcTitle) pcTitle.textContent = t('presence.combos');
-  const plTitle = root.querySelector('.presence-live-title'); if (plTitle) plTitle.textContent = t('presence.live_header');
-  const plDesc = root.querySelector('.presence-live-desc'); if (plDesc) plDesc.textContent = t('presence.live_header.desc');
+        const pcTitle = root.querySelector('.presence-combos-title'); if (pcTitle) pcTitle.textContent = t('presence.combos');
+        const plTitle = root.querySelector('.presence-live-title'); if (plTitle) plTitle.textContent = t('presence.live_header');
+        const plDesc = root.querySelector('.presence-live-desc'); if (plDesc) plDesc.textContent = t('presence.live_header.desc');
         const pcDesc = root.querySelector('.presence-combos-desc'); if (pcDesc) pcDesc.textContent = '';
       } catch {}
 
